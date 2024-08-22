@@ -1,4 +1,4 @@
 package com.bagal.base;
 
-public class BaseSuite {
+public class TestSetup {
 }
