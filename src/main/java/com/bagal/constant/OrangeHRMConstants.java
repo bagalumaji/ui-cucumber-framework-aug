@@ -1,4 +1,4 @@
 package com.bagal.constant;
 
-public class OrangeHRMConstants {
+public final class OrangeHRMConstants {
 }
