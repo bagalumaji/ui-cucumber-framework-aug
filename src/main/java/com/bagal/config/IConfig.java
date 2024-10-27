@@ -1,4 +1,7 @@
 package com.bagal.config;
 
-public interface IConfig {
+import org.aeonbits.owner.Config;
+
+public interface IConfig extends Config {
+    String url();
 }
