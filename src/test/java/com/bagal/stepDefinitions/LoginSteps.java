@@ -1,33 +1,32 @@
 package com.bagal.stepDefinitions;
 
+import com.bagal.pages.LoginPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class LoginSteps {
-    WebDriver driver;
+    LoginPage loginPage = new LoginPage();
     @Given("the user is on the login page")
     public void theUserIsOnTheLoginPage() {
-        System.out.println("The user is on the login page");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+       loginPage.verifyOrangeHRMLogo();
     }
 
     @When("the user enters {string} as the username and {string} as the password")
-    public void theUserEntersAsTheUsernameAndAsThePassword(String arg0, String arg1) {
-
+    public void theUserEntersAsTheUsernameAndAsThePassword(String username, String password) {
+        loginPage.enterUserName(username);
+        loginPage.enterPassword(password);
     }
 
     @And("the user clicks on the login button")
     public void theUserClicksOnTheLoginButton() {
+        loginPage.clickOnLoginButton();
     }
 
     @Then("the user should be redirected to the dashboard")
     public void theUserShouldBeRedirectedToTheDashboard() {
+
     }
 
     @And("the user should see the {string} heading")
