@@ -1,23 +1,23 @@
 package com.bagal.driver;
 
-import com.bagal.config.ConfigReader;
-import com.bagal.exceptions.BrowserNotSupportedException;
+import com.bagal.driver.factory.LocalChromeManager;
+import com.bagal.driver.factory.LocalFirefoxManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public final class DriverFactory {
     private DriverFactory() {
     }
+    private static final Map<String, Supplier<WebDriver>> MAP=new HashMap<>();
+    static {
+        MAP.put("chrome", LocalChromeManager::getDriver);
+        MAP.put("firefox", LocalFirefoxManager::getDriver);
 
-    public static WebDriver getDriver() {
-        switch (ConfigReader.getConfig().browser().toUpperCase()) {
-            case "CHROME":
-                return new ChromeDriver();
-            case "FIREFOX":
-                return new FirefoxDriver();
-            default:
-                throw new BrowserNotSupportedException(ConfigReader.getConfig().browser().toUpperCase()+" is not supported");
-        }
+    }
+    public static WebDriver getDriver(String browser) {
+       return MAP.get(browser).get();
     }
 }
